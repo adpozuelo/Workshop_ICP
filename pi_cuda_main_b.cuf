@@ -1,0 +1,30 @@
+! Antonio Díaz Pozuelo - adpozuelo@gmail.com
+! Introducción a la computación paralela
+program pi_cuda
+   use cudafor
+   use pi_mod
+   implicit none
+
+   integer :: i, n_blocks, time
+   integer, parameter :: n_threads = 128
+   integer, parameter :: square_points = 1073741824
+   real :: pi
+   integer, allocatable:: circle_points(:)
+   integer date_time(8)
+   character*10 b(3)
+   call date_and_time(b(1), b(2), b(3), date_time)
+   read(b(2),*) time
+
+   allocate (circle_points(square_points))
+   allocate (dev_circle_points(square_points))
+
+   n_blocks = square_points/n_threads
+   if (mod(n_blocks, n_threads) > 0) n_blocks = n_blocks + 1
+
+   call pi_kernel<<<n_blocks, n_threads>>>(square_points, time)
+   circle_points = dev_circle_points
+
+   pi = 4*real(sum(circle_points))/square_points
+   print *, "Pi ~=", pi
+
+end program pi_cuda

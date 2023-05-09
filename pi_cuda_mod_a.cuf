@@ -1,0 +1,22 @@
+! Antonio Díaz Pozuelo - adpozuelo@gmail.com
+! Introducción a la computación paralela
+module pi_mod
+   implicit none
+   real, allocatable, device :: dev_rand_x(:)
+   integer, allocatable, device:: dev_circle_points(:)
+contains
+   attributes(global) subroutine pi_kernel(square_points)
+      integer, value, intent(in) :: square_points
+      integer :: i
+      i = (blockidx%x - 1)*blockdim%x + threadidx%x
+
+      if (i <= square_points) then
+         if (dev_rand_x(i) <= 1.0) then
+            dev_circle_points(i) = 1 
+         else
+            dev_circle_points(i) = 0         
+         end if
+      end if
+   end subroutine pi_kernel
+
+end module pi_mod

@@ -1,0 +1,36 @@
+! Antonio Díaz Pozuelo - adpozuelo@gmail.com
+! Introducción a la computación paralela
+module pi_mod
+   use curand_device
+   implicit none
+   integer, allocatable, device:: dev_circle_points(:)
+contains
+   attributes(global) subroutine pi_kernel(square_points, time)
+      integer, value, intent(in) :: square_points
+      integer, value, intent(in) :: time
+      type(curandStateXORWOW) :: h
+      integer(8) :: seed, seq, offset
+      integer :: i
+      real(8) :: rand_x, rand_y, origin_dist
+
+      i = (blockidx%x - 1)*blockdim%x + threadidx%x
+      seed = i * 1024 + time
+      seq = 0
+      offset = 0
+      call curand_init(seed, seq, offset, h)
+
+      if (i <= square_points) then
+         rand_x = curand_uniform_double(h) *2 - 1
+         rand_y = curand_uniform_double(h) *2 - 1
+
+         origin_dist = rand_x*rand_x + rand_y*rand_y
+
+         if (origin_dist <= 1.0) then
+            dev_circle_points(i) = 1 
+         else
+            dev_circle_points(i) = 0         
+         end if
+      end if
+   end subroutine pi_kernel
+
+end module pi_mod
