@@ -7,8 +7,8 @@ El objetivo de este Workshop es mostrar los principos básicos de la computació
 ## Requisitos
 
 - [ ] [Python](https://www.python.org/)
-- [ ] [gcc/gfortran (GNU)] (https://gcc.gnu.org/)
-- [ ] [OpenMP] (https://www.openmp.org/) 
+- [ ] [gcc/gfortran (GNU)](https://gcc.gnu.org/)
+- [ ] [OpenMP](https://www.openmp.org/) 
 - [ ] [NVIDIA HPC SDK](https://developer.nvidia.com/hpc-sdk).
 
 ## Compilado y ejecución
