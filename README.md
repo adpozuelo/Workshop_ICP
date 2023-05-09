@@ -1,6 +1,6 @@
-# Workshop: Introducción la computación paralela
+# Workshop: Introducción a la computación paralela
 
-## Introducción la computación paralela
+## Introducción a la computación paralela
 
 El objetivo de este Workshop es mostrar los principos básicos de la computación paralela: arquitectura, diseño, librerías de paralelización, eficiencia/speedup, escalado, eficiencia energética, generadores de números aleatorios, zonas críticas de memoria, sincronización entre hilos, etc. Para cumplir este objetivo, se implementará un método de Monte Carlo para estimar el número Pi. A lo largo del Workshop se trabajará con los lenguajes de programación Python, C y Fortran; así como con las librerías de paralelización OpenMP, Fortran SP y NVIDIA CUDA. Finalmente, se realizará un análisis de rendimiento para establecer un debate sobre los distintos diseños y las librerias y lenguajes de programación utilizados.
 
